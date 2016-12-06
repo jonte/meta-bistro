@@ -3,8 +3,8 @@
 #
 DESCRIPTION = "Helpers for installing different multimedia types"
 
-# To use this recipe, inherit it, and specify the SRC_URI to an archive with
-# media files. BitBake will do_unpack the archive, and this inc file will
+# To use this class, inherit it, and specify the SRC_URI to an archive with
+# media files. BitBake will do_unpack the archive, and this class file will
 # search through it and find media files based on file extension. No specific
 # file hierarchy is required in the archive. Nested archives are not supported.
 
@@ -16,8 +16,6 @@ FILEEXTENSIONS_IMAGE = "png jpg gif"
 # Add the corresponding variable above if adding new media types to this list.
 # Removing from the list prevents packages of the given type to be built.
 FILEEXTENSIONS_PACKS = "audio video image"
-
-S = "${WORKDIR}"
 
 python () {
     import fnmatch
@@ -51,7 +49,7 @@ python () {
     bb.utils.get_used_extensions = get_used_extensions
 }
 
-python do_install() {
+python do_install_media() {
     def install(file, dest, mode):
         os.system(d.expand("install -m %d '%s' '%s'" % (mode, f, dest)))
 
@@ -109,3 +107,5 @@ python populate_packages_prepend () {
 
     d.setVar('PACKAGES', " ".join(newpackages))
 }
+
+addtask do_install_media after do_install before do_package

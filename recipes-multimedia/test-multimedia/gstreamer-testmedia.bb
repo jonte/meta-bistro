@@ -4,7 +4,7 @@
 #
 DESCRIPTION = "GStreamer multimedia test files downloaded from Pelagicore mirror"
 
-include test-multimedia.inc
+inherit testmedia
 
 HOMEPAGE = "https://testmedia.pelagicore.net/public/"
 LICENSE = "CC-BY-NC-1.0 | CC-BY-SA-1.0 | CC-BY-1.0"
